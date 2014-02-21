@@ -285,7 +285,7 @@ public class VideoCastNotificationService extends Service {
         stackBuilder.addParentStack(mTargetActivity);
 
         stackBuilder.addNextIntent(contentIntent);
-        stackBuilder.editIntentAt(1).putExtra("media", mediaWrapper);
+//        stackBuilder.editIntentAt(1).putExtra("media", mediaWrapper);
 
         // Gets a PendingIntent containing the entire back stack
         PendingIntent resultPendingIntent =

@@ -19,6 +19,9 @@ package com.google.sample.castcompanionlibrary.cast.player;
 import static com.google.sample.castcompanionlibrary.utils.LogUtils.LOGD;
 import static com.google.sample.castcompanionlibrary.utils.LogUtils.LOGE;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.cast.MediaStatus;
@@ -31,17 +34,13 @@ import com.google.sample.castcompanionlibrary.cast.exceptions.TransientNetworkDi
 import com.google.sample.castcompanionlibrary.utils.LogUtils;
 import com.google.sample.castcompanionlibrary.utils.Utils;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -62,7 +61,7 @@ import java.util.TimerTask;
  * This activity provides a number of controllers for managing the playback of the remote content:
  * play/pause and seekbar.
  */
-public class VideoCastControllerActivity extends ActionBarActivity {
+public class VideoCastControllerActivity extends SherlockActivity {
 
     private static final String TAG = LogUtils.makeLogTag(VideoCastControllerActivity.class);
     private VideoCastManager mCastManager;
@@ -361,8 +360,8 @@ public class VideoCastControllerActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.cast_player_menu, menu);
-        mCastManager.addMediaRouterButton(menu, R.id.media_route_menu_item);
+        getSupportMenuInflater().inflate(R.menu.cast_player_menu, menu);
+//        mCastManager.addMediaRouterButton(menu, R.id.media_route_menu_item);
         return true;
     }
 

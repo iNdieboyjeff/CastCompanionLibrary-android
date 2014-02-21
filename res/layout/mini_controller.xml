@@ -10,8 +10,7 @@
         android:layout_width="@dimen/mini_controller_icon_width"
         android:layout_height="@dimen/mini_controller_icon_height"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="7dp"
-        android:src="@drawable/mini_controller_img_placeholder"/>
+        android:src="@drawable/mini_controller_img_placeholder" />
 
     <ImageView
         android:id="@+id/playPauseView"
@@ -59,6 +58,7 @@
         android:layout_toRightOf="@+id/iconView"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textSize="@dimen/mini_controller_font_size_line2"/>
+        android:textSize="@dimen/mini_controller_font_size_line2"
+        android:visibility="visible" />
 
 </RelativeLayout>
