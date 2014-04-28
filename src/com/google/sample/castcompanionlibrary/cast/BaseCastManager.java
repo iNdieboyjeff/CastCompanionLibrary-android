@@ -107,7 +107,7 @@ public abstract class BaseCastManager implements DeviceSelectionListener, Connec
     protected ReconnectionStatus mReconnectionStatus = ReconnectionStatus.INACTIVE;
     protected int mVisibilityCounter;
     protected boolean mUiVisible;
-    protected GoogleApiClient mApiClient;
+    public GoogleApiClient mApiClient;
     protected AsyncTask<Void, Integer, Integer> mReconnectionTask;
     protected int mCapabilities;
     protected boolean mConnectionSuspened;
