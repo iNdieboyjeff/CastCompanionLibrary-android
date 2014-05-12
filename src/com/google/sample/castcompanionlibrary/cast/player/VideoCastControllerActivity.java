@@ -280,6 +280,7 @@ public class VideoCastControllerActivity extends SherlockActivity implements IVi
 
     @Override
     public void setPlaybackStatus(int state) {
+        LOGD(TAG, "setPlaybackStatus(): state = " + state);
         switch (state) {
             case MediaStatus.PLAYER_STATE_PLAYING:
                 mLoading.setVisibility(View.INVISIBLE);
