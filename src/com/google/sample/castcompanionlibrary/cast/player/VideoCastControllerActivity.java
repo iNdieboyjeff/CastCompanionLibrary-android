@@ -18,14 +18,17 @@ package com.google.sample.castcompanionlibrary.cast.player;
 
 import static com.google.sample.castcompanionlibrary.utils.LogUtils.LOGD;
 import static com.google.sample.castcompanionlibrary.utils.LogUtils.LOGE;
+
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -34,9 +37,6 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaStatus;
 import com.google.sample.castcompanionlibrary.R;
@@ -61,11 +61,12 @@ import com.google.sample.castcompanionlibrary.utils.Utils;
  * In that case, this activity manages starting the {@link IMediaAuthService} and will register a
  * listener to handle the result.
  */
-public class VideoCastControllerActivity extends SherlockActivity implements IVideoCastController {
+public class VideoCastControllerActivity extends ActionBarActivity implements IVideoCastController {
 
     private static final String TAG = LogUtils.makeLogTag(VideoCastControllerActivity.class);
     private VideoCastManager mCastManager;
     private View mPageView;
+    private ImageView image;
     private ImageView mPlayPause;
     private TextView mLiveText;
     private TextView mStart;
@@ -79,7 +80,7 @@ public class VideoCastControllerActivity extends SherlockActivity implements IVi
     private Drawable mPauseDrawable;
     private Drawable mPlayDrawable;
     private Drawable mStopDrawable;
-    private Fragment mediaAuthFragment;
+    private VideoCastControllerFragment mediaAuthFragment;
     private OnVideoCastControllerListener mListener;
     private int mStreamType;
     public static final float DEFAULT_VOLUME_INCREMENT = 0.05f;
@@ -107,26 +108,26 @@ public class VideoCastControllerActivity extends SherlockActivity implements IVi
             return;
         }
 
-        FragmentManager fm = this.getFragmentManager();
-        mediaAuthFragment = fm.findFragmentByTag("task");
-//
-//        // if fragment is null, it means this is the first time, so create it
-//        if (mediaAuthFragment == null) {
-//            mediaAuthFragment = VideoCastControllerFragment.newInstance(extras);
-//            fm.beginTransaction().add(mediaAuthFragment, "task").commit();
-//            mListener = mediaAuthFragment;
-//            setOnVideoCastControllerChangedListener(mListener);
-//        } else {
-//            mListener = mediaAuthFragment;
-//            mListener.onConfigurationChanged();
-//        }
+        FragmentManager fm = getSupportFragmentManager();
+        mediaAuthFragment = (VideoCastControllerFragment) fm.findFragmentByTag("task");
+
+        // if fragment is null, it means this is the first time, so create it
+        if (mediaAuthFragment == null) {
+            mediaAuthFragment = VideoCastControllerFragment.newInstance(extras);
+            fm.beginTransaction().add(mediaAuthFragment, "task").commit();
+            mListener = mediaAuthFragment;
+            setOnVideoCastControllerChangedListener(mListener);
+        } else {
+            mListener = mediaAuthFragment;
+            mListener.onConfigurationChanged();
+        }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getSupportMenuInflater().inflate(R.menu.cast_player_menu, menu);
-//        mCastManager.addMediaRouterButton(menu, R.id.media_route_menu_item);
+        getMenuInflater().inflate(R.menu.cast_player_menu, menu);
+        mCastManager.addMediaRouterButton(menu, R.id.media_route_menu_item);
         return true;
     }
 
@@ -188,6 +189,7 @@ public class VideoCastControllerActivity extends SherlockActivity implements IVi
         mPlayDrawable = getResources().getDrawable(R.drawable.ic_av_play_dark);
         mStopDrawable = getResources().getDrawable(R.drawable.ic_av_stop_dark);
         mPageView = findViewById(R.id.pageView);
+        image = (ImageView) findViewById(R.id.imageView2);
         mPlayPause = (ImageView) findViewById(R.id.imageView1);
         mLiveText = (TextView) findViewById(R.id.liveText);
         mStart = (TextView) findViewById(R.id.startText);
@@ -341,10 +343,10 @@ public class VideoCastControllerActivity extends SherlockActivity implements IVi
     @Override
     public void setImage(Bitmap bitmap) {
         if (null != bitmap) {
-            if (mPageView instanceof ImageView) {
-                ((ImageView) mPageView).setImageBitmap(bitmap);
+            if (image instanceof ImageView) {
+                ((ImageView) image).setImageBitmap(bitmap);
             } else {
-                mPageView.setBackgroundDrawable(new BitmapDrawable(getResources(), bitmap));
+                image.setBackgroundDrawable(new BitmapDrawable(getResources(), bitmap));
             }
         }
     }

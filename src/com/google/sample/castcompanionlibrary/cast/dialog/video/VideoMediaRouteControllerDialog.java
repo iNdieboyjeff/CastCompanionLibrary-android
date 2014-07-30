@@ -54,7 +54,7 @@ public class VideoMediaRouteControllerDialog extends MediaRouteControllerDialog 
             LogUtils.makeLogTag(VideoMediaRouteControllerDialog.class);
 
     private ImageView mIcon;
-    private ImageView mPausePlay;
+//    private ImageView mPausePlay;
     private TextView mTitle;
     private TextView mSubTitle;
     private TextView mEmptyText;
@@ -134,7 +134,7 @@ public class VideoMediaRouteControllerDialog extends MediaRouteControllerDialog 
         mSubTitle.setVisibility(visibility);
         mEmptyText.setText(resId == 0 ? R.string.no_media_info : resId);
         mEmptyText.setVisibility(hide ? View.VISIBLE : View.GONE);
-        if (hide) mPausePlay.setVisibility(visibility);
+//        if (hide) mPausePlay.setVisibility(visibility);
     }
 
     private void updateMetadata() {
@@ -200,50 +200,50 @@ public class VideoMediaRouteControllerDialog extends MediaRouteControllerDialog 
     }
 
     private void updatePlayPauseState(int state) {
-        if (null != mPausePlay) {
-            switch (state) {
-                case MediaStatus.PLAYER_STATE_PLAYING:
-                    mPausePlay.setImageDrawable(getPauseStopButton());
-                    adjustControlsVisibility(true);
-                    break;
-                case MediaStatus.PLAYER_STATE_PAUSED:
-                    mPausePlay.setImageDrawable(mPlayDrawable);
-                    adjustControlsVisibility(true);
-                    break;
-                case MediaStatus.PLAYER_STATE_IDLE:
-                    mPausePlay.setVisibility(View.INVISIBLE);
-                    setLoadingVisibility(false);
-
-                    if (mState == MediaStatus.PLAYER_STATE_IDLE
-                            && mCastManager.getIdleReason() == MediaStatus.IDLE_REASON_FINISHED) {
-                        hideControls(true, R.string.no_media_info);
-                    } else {
-                        switch (mStreamType) {
-                            case MediaInfo.STREAM_TYPE_BUFFERED:
-                                mPausePlay.setVisibility(View.INVISIBLE);
-                                setLoadingVisibility(false);
-                                break;
-                            case MediaInfo.STREAM_TYPE_LIVE:
-                                int idleReason = mCastManager.getIdleReason();
-                                if (idleReason == MediaStatus.IDLE_REASON_CANCELED) {
-                                    mPausePlay.setImageDrawable(mPlayDrawable);
-                                    adjustControlsVisibility(true);
-                                } else {
-                                    mPausePlay.setVisibility(View.INVISIBLE);
-                                    setLoadingVisibility(false);
-                                }
-                                break;
-                        }
-                    }
-                    break;
-                case MediaStatus.PLAYER_STATE_BUFFERING:
-                    adjustControlsVisibility(false);
-                    break;
-                default:
-                    mPausePlay.setVisibility(View.INVISIBLE);
-                    setLoadingVisibility(false);
-            }
-        }
+//        if (null != mPausePlay) {
+//            switch (state) {
+//                case MediaStatus.PLAYER_STATE_PLAYING:
+//                    mPausePlay.setImageDrawable(getPauseStopButton());
+//                    adjustControlsVisibility(true);
+//                    break;
+//                case MediaStatus.PLAYER_STATE_PAUSED:
+//                    mPausePlay.setImageDrawable(mPlayDrawable);
+//                    adjustControlsVisibility(true);
+//                    break;
+//                case MediaStatus.PLAYER_STATE_IDLE:
+//                    mPausePlay.setVisibility(View.INVISIBLE);
+//                    setLoadingVisibility(false);
+//
+//                    if (mState == MediaStatus.PLAYER_STATE_IDLE
+//                            && mCastManager.getIdleReason() == MediaStatus.IDLE_REASON_FINISHED) {
+//                        hideControls(true, R.string.no_media_info);
+//                    } else {
+//                        switch (mStreamType) {
+//                            case MediaInfo.STREAM_TYPE_BUFFERED:
+//                                mPausePlay.setVisibility(View.INVISIBLE);
+//                                setLoadingVisibility(false);
+//                                break;
+//                            case MediaInfo.STREAM_TYPE_LIVE:
+//                                int idleReason = mCastManager.getIdleReason();
+//                                if (idleReason == MediaStatus.IDLE_REASON_CANCELED) {
+//                                    mPausePlay.setImageDrawable(mPlayDrawable);
+//                                    adjustControlsVisibility(true);
+//                                } else {
+//                                    mPausePlay.setVisibility(View.INVISIBLE);
+//                                    setLoadingVisibility(false);
+//                                }
+//                                break;
+//                        }
+//                    }
+//                    break;
+//                case MediaStatus.PLAYER_STATE_BUFFERING:
+//                    adjustControlsVisibility(false);
+//                    break;
+//                default:
+//                    mPausePlay.setVisibility(View.INVISIBLE);
+//                    setLoadingVisibility(false);
+//            }
+//        }
     }
 
     private Drawable getPauseStopButton() {
@@ -263,7 +263,7 @@ public class VideoMediaRouteControllerDialog extends MediaRouteControllerDialog 
 
     private void adjustControlsVisibility(boolean showPlayPlause) {
         int visible = showPlayPlause ? View.VISIBLE : View.INVISIBLE;
-        mPausePlay.setVisibility(visible);
+//        mPausePlay.setVisibility(visible);
         setLoadingVisibility(!showPlayPlause);
     }
 
@@ -295,28 +295,28 @@ public class VideoMediaRouteControllerDialog extends MediaRouteControllerDialog 
 
     private void setupCallbacks() {
 
-        mPausePlay.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (null == mCastManager) {
-                    return;
-                }
-                try {
-                    adjustControlsVisibility(false);
-                    mCastManager.togglePlayback();
-                } catch (CastException e) {
-                    adjustControlsVisibility(true);
-                    LOGE(TAG, "Failed to toggle playback", e);
-                } catch (TransientNetworkDisconnectionException e) {
-                    adjustControlsVisibility(true);
-                    LOGE(TAG, "Failed to toggle playback due to network issues", e);
-                } catch (NoConnectionException e) {
-                    adjustControlsVisibility(true);
-                    LOGE(TAG, "Failed to toggle playback due to network issues", e);
-                }
-            }
-        });
+//        mPausePlay.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                if (null == mCastManager) {
+//                    return;
+//                }
+//                try {
+//                    adjustControlsVisibility(false);
+//                    mCastManager.togglePlayback();
+//                } catch (CastException e) {
+//                    adjustControlsVisibility(true);
+//                    LOGE(TAG, "Failed to toggle playback", e);
+//                } catch (TransientNetworkDisconnectionException e) {
+//                    adjustControlsVisibility(true);
+//                    LOGE(TAG, "Failed to toggle playback due to network issues", e);
+//                } catch (NoConnectionException e) {
+//                    adjustControlsVisibility(true);
+//                    LOGE(TAG, "Failed to toggle playback due to network issues", e);
+//                }
+//            }
+//        });
 
         mIcon.setOnClickListener(new View.OnClickListener() {
 
@@ -342,7 +342,7 @@ public class VideoMediaRouteControllerDialog extends MediaRouteControllerDialog 
     private void loadViews(View controls) {
         mIcon = (ImageView) controls.findViewById(R.id.iconView);
         mIconContainer = controls.findViewById(R.id.iconContainer);
-        mPausePlay = (ImageView) controls.findViewById(R.id.playPauseView);
+//        mPausePlay = (ImageView) controls.findViewById(R.id.playPauseView);
         mTitle = (TextView) controls.findViewById(R.id.titleView);
         mSubTitle = (TextView) controls.findViewById(R.id.subTitleView);
         mLoading = (ProgressBar) controls.findViewById(R.id.loadingView);
