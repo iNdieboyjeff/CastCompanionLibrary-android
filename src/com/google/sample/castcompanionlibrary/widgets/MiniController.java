@@ -61,7 +61,7 @@ public class MiniController extends RelativeLayout implements IMiniController {
     protected ImageView mIcon;
     protected TextView mTitle;
     protected TextView mSubTitle;
-    protected ImageView mPlayPause;
+//    protected ImageView mPlayPause;
     protected ProgressBar mLoading;
     public static final int PLAYBACK = 1;
     public static final int PAUSE = 2;
@@ -122,24 +122,24 @@ public class MiniController extends RelativeLayout implements IMiniController {
 
     private void setupCallbacks() {
 
-        mPlayPause.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    setLoadingVisibility(true);
-                    try {
-                        mListener.onPlayPauseClicked(v);
-                    } catch (CastException e) {
-                        mListener.onFailed(R.string.failed_perform_action, -1);
-                    } catch (TransientNetworkDisconnectionException e) {
-                        mListener.onFailed(R.string.failed_no_connection_trans, -1);
-                    } catch (NoConnectionException e) {
-                        mListener.onFailed(R.string.failed_no_connection, -1);
-                    }
-                }
-            }
-        });
+//        mPlayPause.setOnClickListener(new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                if (null != mListener) {
+//                    setLoadingVisibility(true);
+//                    try {
+//                        mListener.onPlayPauseClicked(v);
+//                    } catch (CastException e) {
+//                        mListener.onFailed(R.string.failed_perform_action, -1);
+//                    } catch (TransientNetworkDisconnectionException e) {
+//                        mListener.onFailed(R.string.failed_no_connection_trans, -1);
+//                    } catch (NoConnectionException e) {
+//                        mListener.onFailed(R.string.failed_no_connection, -1);
+//                    }
+//                }
+//            }
+//        });
 
         mContainer.setOnClickListener(new OnClickListener() {
 
@@ -224,39 +224,39 @@ public class MiniController extends RelativeLayout implements IMiniController {
     public void setPlaybackStatus(int state, int idleReason) {
         switch (state) {
             case MediaStatus.PLAYER_STATE_PLAYING:
-                mPlayPause.setVisibility(View.VISIBLE);
-                mPlayPause.setImageDrawable(getPauseStopButton());
+//                mPlayPause.setVisibility(View.VISIBLE);
+//                mPlayPause.setImageDrawable(getPauseStopButton());
                 setLoadingVisibility(false);
                 break;
             case MediaStatus.PLAYER_STATE_PAUSED:
-                mPlayPause.setVisibility(View.VISIBLE);
-                mPlayPause.setImageDrawable(mPlayDrawable);
+//                mPlayPause.setVisibility(View.VISIBLE);
+//                mPlayPause.setImageDrawable(mPlayDrawable);
                 setLoadingVisibility(false);
                 break;
             case MediaStatus.PLAYER_STATE_IDLE:
                 switch (mStreamType) {
                     case MediaInfo.STREAM_TYPE_BUFFERED:
-                        mPlayPause.setVisibility(View.INVISIBLE);
+//                        mPlayPause.setVisibility(View.INVISIBLE);
                         setLoadingVisibility(false);
                         break;
                     case MediaInfo.STREAM_TYPE_LIVE:
                         if (idleReason == MediaStatus.IDLE_REASON_CANCELED) {
-                            mPlayPause.setVisibility(View.VISIBLE);
-                            mPlayPause.setImageDrawable(mPlayDrawable);
+//                            mPlayPause.setVisibility(View.VISIBLE);
+//                            mPlayPause.setImageDrawable(mPlayDrawable);
                             setLoadingVisibility(false);
                         } else {
-                            mPlayPause.setVisibility(View.INVISIBLE);
+//                            mPlayPause.setVisibility(View.INVISIBLE);
                             setLoadingVisibility(false);
                         }
                         break;
                 }
                 break;
             case MediaStatus.PLAYER_STATE_BUFFERING:
-                mPlayPause.setVisibility(View.INVISIBLE);
+//                mPlayPause.setVisibility(View.INVISIBLE);
                 setLoadingVisibility(true);
                 break;
             default:
-                mPlayPause.setVisibility(View.INVISIBLE);
+//                mPlayPause.setVisibility(View.INVISIBLE);
                 setLoadingVisibility(false);
                 break;
         }
@@ -271,7 +271,7 @@ public class MiniController extends RelativeLayout implements IMiniController {
         mIcon = (ImageView) findViewById(R.id.iconView);
         mTitle = (TextView) findViewById(R.id.titleView);
         mSubTitle = (TextView) findViewById(R.id.subTitleView);
-        mPlayPause = (ImageView) findViewById(R.id.playPauseView);
+//        mPlayPause = (ImageView) findViewById(R.id.playPauseView);
         mLoading = (ProgressBar) findViewById(R.id.loadingView);
         mContainer = findViewById(R.id.bigContainer);
     }
